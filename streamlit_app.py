@@ -11,7 +11,7 @@ from murder_mystery import (
 
 def reset_case(case_index=None):
     if case_index is None:
-        case_index = st.session_state.case_index
+        case_index = st.session_state.get("case_index", 0)
     st.session_state.case_index = case_index
     st.session_state.game = create_game(case_index)
     st.session_state.interrogation = None
@@ -21,7 +21,7 @@ def reset_case(case_index=None):
 if "case_index" not in st.session_state:
     st.session_state.case_index = 0
 
-if "game" not in st.session_state:
+if "game" not in st.session_state or "case_title" not in st.session_state.get("game", {}):
     reset_case(st.session_state.case_index)
 
 st.set_page_config(page_title="Murder Mystery Detective", page_icon="🕵️‍♂️", layout="wide")
