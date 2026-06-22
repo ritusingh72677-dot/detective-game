@@ -2,29 +2,43 @@ import streamlit as st
 
 from murder_mystery import (
     accuse_suspect,
+    case_list,
     create_game,
     interrogate_suspect,
     suspect_list,
 )
 
 
-def reset_case():
-    st.session_state.game = create_game()
+def reset_case(case_index=None):
+    if case_index is None:
+        case_index = st.session_state.case_index
+    st.session_state.case_index = case_index
+    st.session_state.game = create_game(case_index)
     st.session_state.interrogation = None
     st.session_state.message = ""
 
 
+if "case_index" not in st.session_state:
+    st.session_state.case_index = 0
+
 if "game" not in st.session_state:
-    reset_case()
+    reset_case(st.session_state.case_index)
 
 st.set_page_config(page_title="Murder Mystery Detective", page_icon="🕵️‍♂️", layout="wide")
 st.title("🕵️‍♂️ Murder Mystery Detective")
 st.markdown(
-    "Solve the manor mystery by questioning suspects, gathering clues, and making the correct accusation before your chances run out."
+    "Solve mysterious murder cases by questioning suspects, gathering clues, and making the correct accusation before your chances run out."
 )
 
+case_options = case_list()
+case_titles = [case["title"] for case in case_options]
+selected_case = st.selectbox("Choose a case 🗂️", case_titles, index=st.session_state.case_index)
+selected_case_index = case_titles.index(selected_case)
+if selected_case_index != st.session_state.case_index:
+    reset_case(selected_case_index)
+
 if st.button("Start a new case 🆕"):
-    reset_case()
+    reset_case(selected_case_index)
 
 game = st.session_state.game
 suspects = game["suspects"]
@@ -51,12 +65,9 @@ with st.sidebar:
 col1, col2 = st.columns([2, 1])
 
 with col1:
-    with st.expander("📜 Case summary", expanded=True):
-        st.write(
-            "A wealthy collector has been murdered in his manor. "
-            "Each suspect has a motive, but only one is the true killer. "
-            "Use your detective instincts to separate truth from lies."
-        )
+    with st.expander(f"📜 Case summary: {game['case_title']}", expanded=True):
+        st.write(f"**Location:** {game['case_location']}")
+        st.write(game["case_description"])
 
     st.subheader("📝 Suspects")
     for suspect in suspect_list(suspects):
