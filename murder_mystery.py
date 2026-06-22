@@ -386,6 +386,7 @@ def game_loop():
 
     game = create_game(case_index)
     print(f"\nStarting case: {game['case_title']} at {game['case_location']}\n")
+    print(f"Case summary: {game['case_description']}\n")
 
     while not game["game_over"]:
         print("What would you like to do?")

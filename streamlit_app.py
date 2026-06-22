@@ -44,6 +44,8 @@ game = st.session_state.game
 suspects = game["suspects"]
 suspect_names = [suspect["name"] for suspect in suspects]
 
+st.info(f"**Case summary:** {game['case_description']}  \n**Location:** {game['case_location']}")
+
 with st.sidebar:
     st.header("🧩 How to play")
     st.write(
