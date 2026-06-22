@@ -1,25 +1,32 @@
-# detective-game
+# Detective Game
 
-This repository contains a beginner-friendly Python console murder mystery game and a Streamlit UI.
+A polished murder mystery detective game with both a console interface and a Streamlit web UI.
+
+## Features
+
+- Four suspects with unique personalities, motives, and clues
+- Interrogation system that records evidence and suspect status
+- Limited accusations for suspense and replay value
+- Streamlit interface with a detective journal and evidence tracker
 
 ## Run the console game
 
-1. Make sure you have Python installed.
+1. Make sure Python is installed.
 2. Run:
 
 ```bash
 python3 main.py
 ```
 
-## Run the Streamlit UI
+## Run the Streamlit app
 
-1. Install Streamlit if you do not already have it:
+1. Install dependencies:
 
 ```bash
-pip install streamlit
+pip install -r requirements.txt
 ```
 
-2. Run the app:
+2. Start the app:
 
 ```bash
 streamlit run streamlit_app.py
@@ -27,9 +34,9 @@ streamlit run streamlit_app.py
 
 ## Deploy with Streamlit Cloud
 
-1. Commit your code and push it to GitHub.
+1. Push your code to GitHub.
 2. In Streamlit Cloud, create a new app and connect it to this repository.
 3. Set the main file path to `streamlit_app.py`.
-4. Make sure `requirements.txt` includes `streamlit`.
+4. Confirm `requirements.txt` includes `streamlit`.
 
-Your app will then be deployed and accessible from a Streamlit Cloud URL.
+The app will be published at your Streamlit Cloud URL.
